@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from "prop-types";
+import { bindActionCreators } from "redux" //Почему здесь "" они двойные?
+import connect from "react-redux/es/connect/connect";
 import MessageField from './MessageField';
 import ChatList from './ChatList';
 import Header from './Header';
+import { sendMessage } from "../actions/messageActions";
 
 import '../styles/styles.css'; //'../styles/layout.css';
 //нужно отстилизовать Layout!
@@ -12,10 +15,12 @@ import '../styles/styles.css'; //'../styles/layout.css';
 Теперь <MessageField> получает props chatId из <Layout>.
  */
 
-export default class Layout extends React.Component {
+//export default 
+class Layout extends React.Component {
 
     static propTypes = {
         chatId: PropTypes.number,
+        sendMessage: PropTypes.func.isRequired,
     };
 
     static defaultProps = {
@@ -23,20 +28,20 @@ export default class Layout extends React.Component {
     };
 
     state = {
-
+/*
         chats: {
             1: {title: 'Чат 1', messageList: [1]},
             2: {title: 'Чат 2', messageList: [2]},
             3: {title: 'Чат 3', messageList: []},
     },
-     
+ */    
     messages: {
         1: { text: "Привет", sender: 'bot'},
         2: { text: "Здравствуйте!", sender: 'bot'},
     },
 };
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState) { //Не работает prevProps?
 
       const { messages } = this.state;
 
@@ -46,14 +51,14 @@ export default class Layout extends React.Component {
                === 'me') {
 
                    setTimeout( () =>
-                   this.sendMessage('Не приставай ко мне я робот!', 'bot'));
+                   this.sendMessage('Не приставай ко мне я робот!', 'bot'), 1000);
                
                }
   }
 
   
 
-  sendMessage = (message, sender) => {
+ /* sendMessage = (message, sender) => {
       const { messages, chats } = this.state;
       const { chatId } = this.props;
 
@@ -68,7 +73,22 @@ export default class Layout extends React.Component {
         },
       })
   };
+*/
 
+//Redux
+
+sendMessage = (message, sender) => {
+           const { messages } = this.state;
+           const { chatId } = this.props;
+           const messageId = Object.keys(messages) .length + 1;
+           this.setState({
+            messages: {...messages,
+            [messageId]: {text:message, sender: sender}},
+           });
+}
+
+
+/*
   addChat = (title) => {
       const { chats } = this.state;
       const chatId = Object.keys(chats) .length + 1;
@@ -77,7 +97,7 @@ export default class Layout extends React.Component {
             [chatId]: { title: title, messageList: [] } },
       })
   };
-
+*/
 render() {
     return (
         <div className="layout">
@@ -85,14 +105,14 @@ render() {
           <div className="layout-canvas">
            <div className="layout-left-side">
         <ChatList 
-          chats={ this.state.chats }
-          addChat={ this.addChat }
-           />
+         /* chats={ this.state.chats }
+          addChat={ this.addChat }*/
+          />
         </div>
         <div className="layout-right-side">
         <MessageField
            chatId={ this.props.chatId } 
-           chats={ this.state.chats }
+          // chats={ this.state.chats }
            messages={ this.state.messages }
            sendMessage={ this.sendMessage }
          />
@@ -104,6 +124,9 @@ render() {
     )
  } 
 }
+const mapStateToProps = ({}) => ({});
+const mapDispatchToProps = dispatch => bindActionCreators({ sendMessage },dispatch);
+export default connect(mapStateToProps, mapDispatchToProps) (Layout);
 
   /*  ReactDOM.render(
         <BrowserRouter>

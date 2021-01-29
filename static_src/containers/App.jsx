@@ -3,6 +3,7 @@ import React from 'react';
 import Child from './Child.jsx';
 
 export default class App extends React.Component {
+   
   
     state = {
         text: 'Наш первый React-компонент',
