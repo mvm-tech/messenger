@@ -1,11 +1,19 @@
 import React from 'react';
 import PropTypes from "prop-types";
-
+import { bindActionCreators } from "redux";
+import connect from "react-redux/es/connect/connect";
 import { TextField, FloatingActionButton } from 'material-ui';
 import SendIcon from 'material-ui/svg-icons/content/send';
 import Message from './Message';
 
 import '../styles/styles.css';
+
+/*В state MessageField храним тексты сообщений в массиве. 
+При отрисовке в функции render получаем по этому массиву строк массив компонентов Message,
+который и отрисовываем внутри MessageField. А при нажатии кнопки «Отправить сообщение»
+мы просто добавляем новое сообщение справа к текущему массиву в state.
+
+Теперь нужно заменить импорт App на импорт MessageField в index.jsx: */
 
 /* //4 урок меняем структуру MessageField
 export default class MessageField extends React.Component {
@@ -23,13 +31,23 @@ export default class MessageField extends React.Component {
         
 
     };
+ 
 // Ставим фокус на <input> при монтировании компонента
 
     componentDidMount() {
         //this.textInput.current.focus();
  }
   */
-export default class MessageField extends React.Component {
+//export default 
+class MessageField extends React.Component {
+
+// PropTypes это нужно для контроля типов 'данных', передаваемых в компонент props.
+// можно использовать стороннюю библиотеку PropTypes.
+
+ // isRequired означает, что 'counter(любое свойство)' 
+ // обязательно должен быть передан в "Child".
+ // Если мы забудем передать его, то увидим ошибку.
+
               
     static propTypes = {
         chatId: PropTypes.number.isRequired,
@@ -41,6 +59,14 @@ export default class MessageField extends React.Component {
     state = {
         input: '',
     };
+//Получим сообщения по API в нашем приложении при помощи fetch и выведем в консоль:
+
+    componentDidMount() {
+        fetch('/api/messages.json'
+        ) .then(body => body.json()).
+        then(json => console.log(json))
+
+    }
 
     handleSendMessage = (message, sender) => {
         if (this.state.input.length > 0 || sender === 'bot') {
@@ -54,7 +80,7 @@ export default class MessageField extends React.Component {
 
 
 handleChange = (event) => {
-    this.setState( { [event.target.name]: event.target.value });
+    this.setState( { [event.target.name]: event.target.value } );
 
 };
 
@@ -79,13 +105,16 @@ render() {
             <div key='messageElements' className= "message-field">
                 { messageElements }
             </div>,
+
             <div key='textInput' style={ { width: '100%', display: 'flex' } }>
                 <TextField
                 name="input"
                 fullWidth={ true }
                 hintText="Введите сообщение"
                 style={ { fontSize: '22px' } }
-                onChange={ this.state.input }
+
+                onChange={ this.handleChange }
+                value={ this.state.input }
                 onKeyUp={ this.handleKeyUp }
                 />
 
@@ -99,6 +128,15 @@ render() {
    }
 
 }
+//В этом компоненте нам нужно только получить переменную chats из Redux
+
+
+const mapStateToProps = ({ chatReducer }) => ({
+    chats: chatReducer.chats,
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps) (MessageField);
 
 
  // C пятого урока меняем содержимое компонента MessageField

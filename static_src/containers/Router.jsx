@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { exact } from 'prop-types';
+import { exact } from 'prop-types'; //не работает exact?
 import { Switch, Route } from 'react-router-dom'
 import Layout from './Layout';
 
@@ -16,7 +16,7 @@ export default class Router extends React.Component {
                  exact
                  path='/chat/ :chatId/'
                  render= { obj => <Layout
-                 chatId={ Number(obj.match.params.chatId)}
+                 chatId={ Number(obj.match.params.chatId) }
             />
                }
          />

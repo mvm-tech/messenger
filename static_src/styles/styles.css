@@ -5,11 +5,12 @@
  .message-field {
     display: flex;
     flex-direction: column;
-    background-color: #e2e2e2;
+    background-color: fuchsia;
     height: 50%;
     width: 100%;
     padding: 20px;
     overflow-y: scroll;
+  
  }
  
  .layout {
@@ -20,6 +21,9 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+ 
+    background-color: lightblue;
+  
  }
 
  
@@ -29,6 +33,7 @@
     border-radius: 20px;
     font-size: 18px;
     margin: 5px;
+    
  }
  
  .message-sender {
@@ -36,3 +41,19 @@
     font-size: 14px;
  }
  
+ .layout-canvas {
+background-color: indigo;
+
+}
+
+
+ .layout-left-side { 
+background-color: gold; 
+
+ }
+
+
+ .layout-right-side {
+background-color: green;
+
+}
