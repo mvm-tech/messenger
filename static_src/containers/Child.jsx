@@ -3,7 +3,13 @@ import PropTypes from 'prop-types';
 
 export default class Child extends React.Component {
 
+
+/*Для контроля типов передаваемых в компонент props’ов можно
+ использовать стороннюю библиотеку PropTypes.
+ */
 // Теперь, если counter вдруг окажется строкой, увидим ошибку в панели разработчика:
+ 
+
 static propTypes = {
     counter: PropTypes.number,
 }
