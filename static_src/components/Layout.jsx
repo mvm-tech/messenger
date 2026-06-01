@@ -25,14 +25,14 @@ export default class Layout extends React.Component {
     state = {
 
         chats: {
-            1: {title: 'Чат 1', messageList: [1]},
-            2: {title: 'Чат 2', messageList: [2]},
-            3: {title: 'Чат 3', messageList: []},
+            1: {title: 'Chat 1', messageList: [1]},
+            2: {title: 'Chat 2', messageList: [2]},
+            3: {title: 'Chat 3', messageList: []},
     },
      
     messages: {
-        1: { text: "Привет", sender: 'bot'},
-        2: { text: "Здравствуйте!", sender: 'bot'},
+        1: { text: "Hola, che! Todo bien?", sender: 'bot'},
+        2: { text: "Tomamos un mate?", sender: 'bot'},
     },
 };
 

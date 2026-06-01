@@ -84,7 +84,7 @@ export default class ChatList extends React.Component {
                             key="textField"
                             fullWidth
                             name="input"
-                            hintText="Добавить новый чат"
+                            hintText="Añadir del chat..."
                             onChange={ this.handleChange }
                             value={ this.state.input }
                             onKeyUp={ this.handleKeyUp }

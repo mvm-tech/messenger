@@ -18,7 +18,7 @@ export default class Header extends React.Component {
     render() {
         return (
             <div className="Header">
-                <span style={ { fontSize: '20px' } }>Чат { this.props.chatId }</span>
+                <span style={ { fontSize: '20px' } }>Chat { this.props.chatId }</span>
             </div>
         )
     }
