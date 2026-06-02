@@ -59,7 +59,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Router from './components/Router';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import Layout from './components/Layout';
@@ -68,11 +68,11 @@ import MessageField from './components/MessageField.jsx'; // почему не �
 
 
 ReactDOM.render(
-   <BrowserRouter>
+   <HashRouter>
    <MuiThemeProvider>
     <Router /> 
    </MuiThemeProvider>
-   </BrowserRouter>,
+   </HashRouter>,
    document.getElementById('root'),
 );
 
